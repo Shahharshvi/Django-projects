@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <title>All Products - Redstore</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+        <!--added a cdn link by searching font awesome4 cdn and getting this link from https://www.bootstrapcdn.com/fontawesome/ this url*/-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    </head>
+    <body>
+        <!--<div class ="header">-->
+            <div class="container">
+                <div class="navbar">
+                    <div class="logo">
+                        <a href="index.html"><img src="{% static 'images/logo.png' %}" width="125px"></a>
+                    </div>
+                    <!-- <form action="products-details.html" method="get" class="search-bar">
+                        <input type="text" placeholdr="Search anything",name="q">
+                        <button type="submit"><img src=" {%static 'images/search.png' %}"></button>
+                    </form> -->
+                    <nav>
+                        <ul id="MenuItems">
+                            <li><a href="/">Home</a></li>
+                             <li><a href="{% url 'products' %}">Products</a></li>
+                             <li><a href="">About</a></li>
+                             <li><a href="">Contact</a></li>
+                             <li><a href="{% url 'accounts' %}">Account</a></li>
+    
+                        </ul>
+                    </nav>
+                    <a href="{% url 'cart' %}"><img src="{%static 'images/cart.png' %}" width="30px" height="30px"></a>
+                    <img src="{%static 'images/menu.png' %}" class="menu-icon" onClick="menutoggle()" >
+                </div>
+                
+            </div>
+        </div>
+    <!--</div>-->
+    
+        
+        <!------------------------------ cart items details------------------------------>
+
+        <div class="small-container cart-page">
+        <table>
+            <tr>
+                <th>Product</th>
+                {% comment %} <th>Quantity</th> {% endcomment %}
+                <th>Subtotal</th>
+            </tr>
+            {% for p in products %}
+            <tr>
+                <td>
+                    <div class="cart-info">
+                        <img src="{% static p.product_image.url %}">
+                        <div>
+                            <p>{{p.name}}</p>
+                            <small>₹{{p.price}}</small><br>
+                            <a href="{% url 'remove-from-cart' p.id  %}">Remove</a>
+                        </div>
+                    </div>
+                </td>
+                {% comment %} <td><input type="number" vlaue="1"></td> {% endcomment %}
+                <td>₹{{p.price}}</td>
+            </tr>
+            {% endfor %}
+            </table>
+            
+            <div class="total-price">
+                <table>
+                    {% comment %} <tr>
+                        <td>Subtotal</td>
+                        <td>$200.00</td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td>$35.00</td>
+                    </tr> {% endcomment %}
+                    <tr>
+                        <td>Total</td>
+                        <td>₹{{ total }}</td>
+                    </tr>
+                </table>
+            </div>
+            <a href="/customer-address" class="btn">Buy Now</a>
+        </div>
+        
+        
+       
+        <!----------------------------------footer------------------------------------->
+        <div class ="footer">
+            <div class="container">
+    
+                <div class="row">
+                    <div class="footer-col-1">
+                        <h3>Download Our App</h3>
+                        <p>Download App for Android and ios mobile phone.</p>
+                        <div class="app-logo">
+                            <img src="{%static 'images/play-store.png' %}" alt="">
+                            <img src="{%static 'images/app-store.png' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="footer-col-2">
+                        <img src="{%static 'images/logo-white.png' %}">
+                        <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
+                    </div>
+                    <div class="footer-col-3">
+                        <h3>Useful Links</h3>
+                       <ul>
+                           <li>Coupons</li>
+                           <li>Blog Post</li>
+                           <li>Return Policy</li>
+                           <li>Join Affiliate</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col-4">
+                        <h3>Follow us</h3>
+                       <ul>
+                           <li>Facebook</li>
+                           <li>Twitter</li>
+                           <li>Instagram</li>
+                           <li>Youtube</li>
+                        </ul>
+                    </div>
+    
+                </div>
+    
+                <hr><!--horizontal line-->
+    
+            </div>
+        </div>
+        
+        
+        <!-----------------------------------js for toggle menu-------------------------------------->
+        <script>
+            var menuItems=document.getElementById("MenuItems");
+            
+            MenuItems.style.maxHeight="0px";
+            function menutoggle(){
+                if(MenuItems.style.maxHeight == "0px"){
+                    MenuItems.style.maxHeight="200px";
+                }
+                else{
+                    MenuItems.style.maxHeight="0px";
+                }
+            }
+        </script>
+     
+    </body>
+</html>
